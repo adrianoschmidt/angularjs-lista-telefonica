@@ -1,5 +1,6 @@
 <html ng-app="listaTelefonica">
 <head>
+<meta charset="UTF-8">
 <title>Lista Telefonica</title>
 <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
 <style>
@@ -19,47 +20,6 @@
 		margin-bottom: 5px;
 	}
 </style>
-
-
-<script src="lib/angular/angular.js"></script>
-<script>
-	angular.module("listaTelefonica", []);
-	angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope) {
-		$scope.app = "Lista Telefonica";
-		$scope.contatos = [
-			{nome: "Pedro", telefone: "99998888"},
-			{nome: "Ana", telefone: "787787888"},
-			{nome: "Maria", telefone: "132342343"}
-		];
-
-		$scope.operadoras = [
-			{nome: "Oi", codigo: 14, categoria: "Celular"},
-			{nome: "Vivo", codigo: 15, categoria: "Celular"},
-			{nome: "Tim", codigo: 41, categoria: "Celular"},
-			{nome: "Claro", codigo: 51, categoria: "Celular"},
-			{nome: "GVT", codigo: 25, categoria: "Fixo"},
-			{nome: "Embratel", codigo: 21, categoria: "Fixo"}
-		];
-
-		$scope.adicionarContato = function (contato) {
-			$scope.contatos.push(angular.copy(contato));
-			delete $scope.contato;
-		}
-
-		$scope.hasContatoSelecionado = function (contatos) {
-			return contatos.some(function(contato) {
-				return contato.selecionado;
-			})
-		}
-
-		$scope.apagarContatos = function (contatos) {
-			$scope.contatos = contatos.filter(function(contato) {
-				if (!contato.selecionado) return contato;
-			})
-		}
-	})
-	
-</script>
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
@@ -96,5 +56,44 @@
 				Apagar Contatos
 			</button>
 	</div>
+
+	<script src="lib/angular/angular.js"></script>
+	<script>
+		angular.module("listaTelefonica", []);
+		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function($scope) {
+			$scope.app = "Lista Telefônica";
+			$scope.contatos = [
+				{nome: "Pedro", telefone: "99998888"},
+				{nome: "Ana", telefone: "787787888"},
+				{nome: "Maria", telefone: "132342343"}
+			];
+
+			$scope.operadoras = [
+				{nome: "Oi", codigo: 14, categoria: "Celular"},
+				{nome: "Vivo", codigo: 15, categoria: "Celular"},
+				{nome: "Tim", codigo: 41, categoria: "Celular"},
+				{nome: "Claro", codigo: 51, categoria: "Celular"},
+				{nome: "GVT", codigo: 25, categoria: "Fixo"},
+				{nome: "Embratel", codigo: 21, categoria: "Fixo"}
+			];
+
+			$scope.adicionarContato = function (contato) {
+				$scope.contatos.push(angular.copy(contato));
+				delete $scope.contato;
+			}
+
+			$scope.hasContatoSelecionado = function (contatos) {
+				return contatos.some(function(contato) {
+					return contato.selecionado;
+				})
+			}
+
+			$scope.apagarContatos = function (contatos) {
+				$scope.contatos = contatos.filter(function(contato) {
+					if (!contato.selecionado) return contato;
+				})
+			}
+		})
+	</script>
 </body>
 </html>
