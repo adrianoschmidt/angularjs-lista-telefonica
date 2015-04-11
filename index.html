@@ -44,18 +44,29 @@
 
 			<hr/>
 
-			<input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome">
-			<input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone">
-			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
-				<option value="">Selecione uma operadora</select>
-			</select>
-			<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">
+			<form name="contatoForm">
+				<input class="form-control" type="text" ng-model="contato.nome" name="nome" ng-required="true" placeholder="Nome">
+				
+				<input class="form-control" type="text" ng-model="contato.telefone" name="telefone" ng-required="true" placeholder="Telefone">
+				
+				<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+					<option value="">Selecione uma operadora</select>
+				</select>
+			</form>
+
+			<div ng-show="contatoForm.nome.$invalid && contatoForm.nome.$dirty" class="alert alert-danger">Por favor, preencha o nome</div>
+			<div ng-show="contatoForm.telefone.$invalid && contatoForm.nome.$dirty" class="alert alert-danger" >Por favor, preencha o telefone</div>
+
+			<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">
 				Adicionar Contato
 			</button>
 			<button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled="!hasContatoSelecionado(contatos)">
 				Apagar Contatos
 			</button>
 	</div>
+	
+	<!--div ng-include="'footer.html'"></div-->
+	
 
 	<script src="lib/angular/angular.js"></script>
 	<script>
@@ -80,6 +91,7 @@
 			$scope.adicionarContato = function (contato) {
 				$scope.contatos.push(angular.copy(contato));
 				delete $scope.contato;
+				$scope.contatoForm.$setPristine();
 			}
 
 			$scope.hasContatoSelecionado = function (contatos) {
